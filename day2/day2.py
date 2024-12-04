@@ -23,22 +23,26 @@ def check_safe(temp_arr):
         print(f"line: {temp_arr} -> steps {steps}")
         return 0
 
-with open("input.txt") as f:
-    lines = f.readlines()
+def check_safe_tolerate(temp_arr):
+    pass
 
-lines = [line.strip() for line in lines]
+if __name__ == "__main__":
+    with open("input.txt") as f:
+        lines = f.readlines()
 
-safes = 0
-unsafes = 0
-for line in lines:
-    temp_arr = []
-    [temp_arr.append(int(x)) for x in line.split(" ")]
-    #print(temp_arr)
-    res = check_safe(temp_arr)
-    if res:
-        safes += 1
-    else:
-        unsafes += 1
+    lines = [line.strip() for line in lines]
+    # part1
+    safes = 0
+    unsafes = 0
+    for line in lines:
+        temp_arr = []
+        [temp_arr.append(int(x)) for x in line.split(" ")]
+        #print(temp_arr)
+        res = check_safe(temp_arr)
+        if res:
+            safes += 1
+        else:
+            unsafes += 1
 
-print(f"safes: {safes}")
-print(f"unsafes: {unsafes}")
+    print(f"safes: {safes}")
+    print(f"unsafes: {unsafes}")

@@ -1,6 +1,4 @@
 import re
-with open("input.txt") as f:
-    data = f.read().strip()
 
 
 def eval_mul(a):
@@ -15,35 +13,38 @@ def eval_mul(a):
     #print(a)
     return int(num1) * int(num2)
 
-"""
-ans = 0
-for i in range(len(data)):
-    #print(data[i])
-    if data[i:i+4] == "mul(":
-        # find where it closes
-        idx = 4
-        for j in range(4,20):
-            if data[i+j] == ")":
-                print(data[i:i+j+1])
-                break
-            if isinstance(data[i+j], int) or data[i+j] == ",":
-                print(data[i+j])
-                # if the char is not int or not , 
-                # break
-                break
-            idx += 1
 
-        #print(data[i:i+idx+1])
-        #print(idx)
-        ans += eval_mul(data[i:i+idx+1])
-"""
+def part1(data):
+    ans = 0
+    part1_regex = r"mul\((\d+),(\d+)\)"
+    matches = re.finditer(part1_regex, data, re.MULTILINE)
 
-regex = r"mul\((\d+),(\d+)\)"
+    for match in matches:
+        #print(match.group(0))
+        ans += (eval_mul(match.group(0)))
+    return ans
 
-matches = re.finditer(regex, data, re.MULTILINE)
-ans = 0
-for match in matches:
-    #print(match.group(0))
-    ans += eval_mul(match.group(0))
+def part2(data):
+    part2_regex = r"do\(\)|don't\(\)|mul\((\d+),(\d+)\)"
+    matches = re.finditer(part2_regex, data, re.MULTILINE)
+    
+    do = True
+    ans = 0
 
-print(ans)
+    for match in matches:
+        if match.group(0) == "do()":
+            do = True
+        if match.group(0) == "don't()":
+            do = False
+        if do:
+            ans += (eval_mul(match.group(0)))
+
+    return ans
+
+
+if __name__ == "__main__":
+    with open("input.txt") as f:
+        data = f.read().strip()
+
+    print(part1(data))
+    print(part2(data))

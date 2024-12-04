@@ -30,7 +30,6 @@ def diagonal(data):
     matrix2 = []
     data = data.split("\n")
 
-
     for i,j in zip(reversed(range(len(data))), range(len(data))) :
         
         line = ("*"*i + data[j] ) + j*"*"
@@ -74,7 +73,13 @@ def vertical(data):
     print(f"\t->backwards {b}")
     return h+b
 
+
 if __name__ ==  "__main__":
+    
+    # part1 
+    with open("input.txt") as f:
+        data = f.read().strip()
+
     ans = 0
     b = backwards(data)
     h = horizontal(data)
@@ -87,3 +92,5 @@ if __name__ ==  "__main__":
     
     ans = b + h + v + d
     print(ans)
+
+    # part2
